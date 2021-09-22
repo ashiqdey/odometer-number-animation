@@ -1,13 +1,15 @@
 # odometer-number-animation
 
+Include the JavaScript file
 ```<script src="odometerx.min.js"></script>```
 
-
+Inittialize the class
 ```
-//inittialize the class
 let odo = new OdomterX();
 ```
 
-```//use it
+call the update function
+First parameter is jQuery selector, and second parameter is value (either number or string)
+```
 odo.update("#number",51.9)
 ```
