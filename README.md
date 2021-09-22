@@ -1,9 +1,10 @@
 # odometer-number-animation
+```
+```<script src="odometerx.min.js"></script>```
 
-```<script src="odometerx.min.js"></script>
 
-
-```//inittialize the class
+```
+//inittialize the class
 let odo = new OdomterX();
 ```
 
