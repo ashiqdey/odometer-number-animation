@@ -1,7 +1,9 @@
 # odometer-number-animation
 
 Include the JavaScript file
-```<script src="odometerx.min.js"></script>```
+```
+<script src="odometerx.min.js"></script>
+```
 
 Inittialize the class
 ```
