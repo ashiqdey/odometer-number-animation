@@ -1,6 +1,6 @@
 # odometer-number-animation
-```
-```<script src="odometerx.min.js"></script>```
+
+```<script src="odometerx.min.js"></script>``
 
 
 ```
