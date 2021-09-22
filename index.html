@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+
+
+
+<div id="number" class="odo"></div>
+
+<div style="padding:50px">
+	<input type="number" onchange="update(this.value)" style="padding:10px;font-size:20px">
+	<button style="padding:10px;" onclick="update(52.34)">52.34</button>
+	<button style="padding:10px;" onclick="update(58.45)">58.45</button>
+	<button style="padding:10px;" onclick="update(56.09)">56.09</button>
+	<button style="padding:10px;" onclick="update('54.90')">54.90</button>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+class OdomterX{
+	constructor(option = {}){
+		if(typeof option != "object"){
+			console.log("Option should be object");
+			return
+		}
+
+		option = {
+			transition:0.2,
+			height:9.1, 
+			...option
+		}
+
+		this.transition = option.transition;
+		this.height = option.height;
+
+
+		$("body").after(`<style type="text/css">
+			#number{font-size:20px;font-family:arial;}
+			.odo{display:flex;align-items:center;overflow:hidden;}
+			.odo .column{transform:translateY(0px);transition:0.2s}
+			.odo .hide{opacity:0;}
+
+
+			.pr{position:relative;}
+			.pa{position:absolute;}
+		</style>`);
+	}
+
+
+
+	update(ele,new_val,is_new=false){
+		console.log("update---------------");
+
+		let old_val = $(ele).attr('val');
+		if(old_val===undefined){
+			old_val = '0'.repeat(new_val.length)
+			is_new = true;
+		}
+		
+
+		if(typeof new_val == 'number'){
+			new_val = new_val.toString()
+		}
+
+		$(ele).attr('val',new_val)
+
+
+
+		new_val = new_val.split("")
+		old_val = old_val.split("")
+
+		//
+		if(new_val.length != old_val.length || (new_val.indexOf('.') != old_val.indexOf('.'))){
+			is_new=true
+		}
+
+
+		new_val = new_val.map((char,i)=>{
+			if(is_new){
+				return this.block(ele,char,old_val[i],i)
+			}
+			else{
+				//just update the css
+				this.block(ele,char,old_val[i],i,true)
+			}
+		})
+
+
+		if(is_new){
+			$(ele).html(new_val.join(""));
+		}
+	}
+
+
+
+	block(ele, new_string, old_number=null, index, only_update=false){
+
+		let new_number = parseInt(new_string);
+		if(isNaN(new_number)) return `<div class='each'>${new_string}</div>`
+
+		if(old_number==null) old_number = 0;
+
+		this.css(ele,index,new_number,old_number);
+
+		if(only_update) return;
+
+		return `<div class='each pr' d-index='${index}'>
+			<div class='hide'>${new_string}</div>
+			<div class='column pa'>
+				<div class='hide'>0</div>
+				<div>0</div>
+				<div>1</div>
+				<div>2</div>
+				<div>3</div>
+				<div>4</div>
+				<div>5</div>
+				<div>6</div>
+				<div>7</div>
+				<div>8</div>
+				<div>9</div>
+			</div>
+		</div>`
+	}
+
+
+	css(ele,i,n,o){
+		o = parseInt(o)
+
+		//animate
+		setTimeout(()=>{
+			$(`${ele} .each[d-index='${i}'] .hide`).text(n)
+
+
+			$(`${ele} .each[d-index='${i}'] .column`).css({
+				transform : `translateY(${(-1 * this.height * (n + 2))}%)`,
+				transition : (((o!=null)? Math.abs(n-o) : 1) * this.transition) +"s"
+			})
+		},30);
+	}
+
+
+}
+
+
+
+
+
+
+
+
+let odo = new OdomterX();
+
+odo.update("#number",51.9)
+
+
+
+setTimeout(()=>{odo.update("#number",55.6)},1000)
+setTimeout(()=>{odo.update("#number",56.8)},2000)
+
+function update(n){
+	odo.update("#number",n)
+}
+
+
+
+</script>
+</body>
+</html>
