@@ -1,5 +1,10 @@
 # odometer-number-animation
 
+Include jquery
+```
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+```
+
 Include the JavaScript file
 ```
 <script src="odometerx.min.js"></script>
