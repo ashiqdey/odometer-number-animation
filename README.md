@@ -20,3 +20,5 @@ First parameter is jQuery selector, and second parameter is value (either number
 ```
 odo.update("#number",51.9)
 ```
+
+If any issue is found please raise an issue here.
